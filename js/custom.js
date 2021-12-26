@@ -1,8 +1,10 @@
-const button = document.getElementById("form-button");
+const todoForm = document.getElementById("todoForm");
 const appDataBody = document.querySelector(".app-data-body > ul");
 const removeButton = document.getElementsByClassName("remove");
 
-button.onclick = function() {
+todoForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
     var title = document.querySelector("#title").value;
     var description = document.querySelector("#des").value;
 
@@ -21,11 +23,15 @@ button.onclick = function() {
 
         appDataBody.insertAdjacentHTML("afterbegin", li);
 
-        for (i = 0; i < removeButton.length; i++) {
-            removeButton[i].addEventListener("click", function(e) {
-                e.currentTarget.parentNode.parentNode.parentNode.remove();
-            })
-        }
+        appDataBody.querySelector("li:first-child .remove").addEventListener("click", function(e) {
+            e.currentTarget.closest(".data-body-card").parentNode.remove();
+        })
+
+        // for (i = 0; i < removeButton.length; i++) {
+        //     removeButton[i].addEventListener("click", function(e) {
+        //         e.currentTarget.parentNode.parentNode.parentNode.remove();
+        //     })
+        // }
 
         document.querySelector("#title").value = "";
         document.querySelector("#des").value = "";
@@ -33,6 +39,4 @@ button.onclick = function() {
 
     }
 
-
-
-};
+});
